@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Finance Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="screen">
+            <div class="welcome-content">
+                <div class="logo-animation">💰</div>
+                <h1 class="welcome-title">Personal Finance Manager</h1>
+                <p class="welcome-subtitle">Take control of your financial future</p>
+                <button id="start-setup" class="btn-animated btn-primary">
+                    <i class="fas fa-rocket"></i>
+                    Get Started
+                </button>
+            </div>
+            <div class="floating-elements">
+                <div class="float-element">💳</div>
+                <div class="float-element">📊</div>
+                <div class="float-element">💵</div>
+                <div class="float-element">📈</div>
+                <div class="float-element">🏦</div>
+            </div>
+        </div>
+
+        <!-- Setup Screen -->
+        <div id="setup-screen" class="screen">
+            <div class="setup-content">
+                <h2 class="setup-title">
+                    <i class="fas fa-cog spinning"></i>
+                    Budget Setup
+                </h2>
+                <p class="setup-subtitle">Let's set up your monthly budget in 6 simple steps</p>
+                
+                <div class="setup-form">
+                    <div class="progress-bar">
+                        <div id="setup-progress" class="progress-fill"></div>
+                    </div>
+
+                    <!-- Step 1: Monthly Salary -->
+                    <div id="step-1" class="setup-step active">
+                        <div class="step-header">
+                            <i class="fas fa-dollar-sign"></i>
+                            <h3>What's your monthly salary?</h3>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-prefix">$</span>
+                            <input type="number" placeholder="Enter your monthly salary" min="0" step="0.01">
+                        </div>
+                        <div class="step-buttons">
+                            <button onclick="nextStep(2)" class="btn-next">
+                                Next <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Rent Budget -->
+                    <div id="step-2" class="setup-step">
+                        <div class="step-header">
+                            <i class="fas fa-home"></i>
+                            <h3>How much do you spend on rent?</h3>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-prefix">$</span>
+                            <input type="number" placeholder="Enter monthly rent" min="0" step="0.01">
+                        </div>
+                        <div class="step-buttons">
+                            <button onclick="prevStep(1)" class="btn-back">
+                                <i class="fas fa-arrow-left"></i> Back
+                            </button>
+                            <button onclick="nextStep(3)" class="btn-next">
+                                Next <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Food Budget -->
+                    <div id="step-3" class="setup-step">
+                        <div class="step-header">
+                            <i class="fas fa-utensils"></i>
+                            <h3>What's your food budget?</h3>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-prefix">$</span>
+                            <input type="number" placeholder="Enter monthly food budget" min="0" step="0.01">
+                        </div>
+                        <div class="step-buttons">
+                            <button onclick="prevStep(2)" class="btn-back">
+                                <i class="fas fa-arrow-left"></i> Back
+                            </button>
+                            <button onclick="nextStep(4)" class="btn-next">
+                                Next <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Transportation -->
+                    <div id="step-4" class="setup-step">
+                        <div class="step-header">
+                            <i class="fas fa-car"></i>
+                            <h3>Transportation budget?</h3>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-prefix">$</span>
+                            <input type="number" placeholder="Enter transportation budget" min="0" step="0.01">
+                        </div>
+                        <div class="step-buttons">
+                            <button onclick="prevStep(3)" class="btn-back">
+                                <i class="fas fa-arrow-left"></i> Back
+                            </button>
+                            <button onclick="nextStep(5)" class="btn-next">
+                                Next <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Entertainment -->
+                    <div id="step-5" class="setup-step">
+                        <div class="step-header">
+                            <i class="fas fa-gamepad"></i>
+                            <h3>Entertainment budget?</h3>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-prefix">$</span>
+                            <input type="number" placeholder="Enter entertainment budget" min="0" step="0.01">
+                        </div>
+                        <div class="step-buttons">
+                            <button onclick="prevStep(4)" class="btn-back">
+                                <i class="fas fa-arrow-left"></i> Back
+                            </button>
+                            <button onclick="nextStep(6)" class="btn-next">
+                                Next <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 6: Other Expenses -->
+                    <div id="step-6" class="setup-step">
+                        <div class="step-header">
+                            <i class="fas fa-ellipsis-h"></i>
+                            <h3>Other monthly expenses?</h3>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-prefix">$</span>
+                            <input type="number" placeholder="Enter other expenses" min="0" step="0.01">
+                        </div>
+                        <div class="step-buttons">
+                            <button onclick="prevStep(5)" class="btn-back">
+                                <i class="fas fa-arrow-left"></i> Back
+                            </button>
+                            <button onclick="completeSetup()" class="btn-complete">
+                                <i class="fas fa-check"></i> Complete Setup
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Dashboard -->
+        <div id="main-screen" class="screen">
+            <!-- Header -->
+            <div class="animated-header">
+                <div class="header-content">
+                    <h1><i class="fas fa-chart-line"></i> Finance Dashboard</h1>
+                    <div class="balance-display">
+                        <div class="balance-card">
+                            <span class="balance-label">Current Balance</span>
+                            <span id="current-balance" class="balance-amount">$0.00</span>
+                            <div class="balance-indicator"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Budget Overview -->
+            <div class="budget-overview">
+                <h3>Monthly Budget Overview</h3>
+                <div class="budget-cards">
+                    <div class="budget-card">
+                        <div class="card-icon"><i class="fas fa-dollar-sign"></i></div>
+                        <div class="card-content">
+                            <h4>Monthly Salary</h4>
+                            <div class="budget-amount">$<span id="display-salary">0.00</span></div>
+                        </div>
+                    </div>
+                    <div class="budget-card">
+                        <div class="card-icon"><i class="fas fa-home"></i></div>
+                        <div class="card-content">
+                            <h4>Rent Budget</h4>
+                            <div class="budget-amount">$<span id="display-rent">0.00</span></div>
+                            <div class="usage-bar">
+                                <div id="rent-usage" class="usage-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="budget-card">
+                        <div class="card-icon"><i class="fas fa-utensils"></i></div>
+                        <div class="card-content">
+                            <h4>Food Budget</h4>
+                            <div class="budget-amount">$<span id="display-food">0.00</span></div>
+                            <div class="usage-bar">
+                                <div id="food-usage" class="usage-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="budget-card">
+                        <div class="card-icon"><i class="fas fa-car"></i></div>
+                        <div class="card-content">
+                            <h4>Transportation</h4>
+                            <div class="budget-amount">$<span id="display-transportation">0.00</span></div>
+                            <div class="usage-bar">
+                                <div id="transportation-usage" class="usage-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="budget-card">
+                        <div class="card-icon"><i class="fas fa-gamepad"></i></div>
+                        <div class="card-content">
+                            <h4>Entertainment</h4>
+                            <div class="budget-amount">$<span id="display-entertainment">0.00</span></div>
+                            <div class="usage-bar">
+                                <div id="entertainment-usage" class="usage-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="budget-card">
+                        <div class="card-icon"><i class="fas fa-ellipsis-h"></i></div>
+                        <div class="card-content">
+                            <h4>Other Expenses</h4>
+                            <div class="budget-amount">$<span id="display-other">0.00</span></div>
+                            <div class="usage-bar">
+                                <div id="other-usage" class="usage-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Financial Analysis -->
+            <div class="analysis-section">
+                <div class="analysis-card">
+                    <h3>Financial Analysis</h3>
+                    <div class="analysis-content">
+                        <div class="analysis-item">
+                            <span class="analysis-label">Total Income:</span>
+                            <span class="analysis-value income">$<span id="total-income">0.00</span></span>
+                        </div>
+                        <div class="analysis-item">
+                            <span class="analysis-label">Total Budgeted:</span>
+                            <span class="analysis-value expense">$<span id="total-budgeted">0.00</span></span>
+                        </div>
+                        <div class="analysis-item">
+                            <span class="analysis-label">Available for Savings:</span>
+                            <span class="analysis-value">$<span id="savings-amount">0.00</span></span>
+                        </div>
+                    </div>
+                    <div id="analysis-result" class="analysis-result">
+                        <i class="fas fa-chart-pie"></i> Complete setup to see analysis
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add Transaction Section -->
+            <div class="animated-section">
+                <div class="form-animated">
+                    <h3>Add New Transaction</h3>
+                    <form id="transaction-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="amount">Amount</label>
+                                <input type="number" id="amount" step="0.01" min="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="category">Category</label>
+                                <select id="category" required>
+                                    <option value="">Select Category</option>
+                                    <option value="Food">Food</option>
+                                    <option value="Transportation">Transportation</option>
+                                    <option value="Entertainment">Entertainment</option>
+                                    <option value="Rent">Rent</option>
+                                    <option value="Utilities">Utilities</option>
+                                    <option value="Healthcare">Healthcare</option>
+                                    <option value="Education">Education</option>
+                                    <option value="Shopping">Shopping</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <input type="text" id="description" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="date">Date</label>
+                                <input type="date" id="date" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="type">Type</label>
+                                <select id="type" required>
+                                    <option value="expense">Expense</option>
+                                    <option value="income">Income</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="submit" class="btn-animated btn-primary">
+                                <i class="fas fa-plus"></i> Add Transaction
+                            </button>
+                            <button type="button" id="undo-btn" class="btn-animated btn-warning">
+                                <i class="fas fa-undo"></i> Undo Last
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Analytics Grid -->
+            <div class="animated-section">
+                <div class="analytics-grid">
+                    <!-- Top Expenses -->
+                    <div class="animated-card">
+                        <h3>Top Expenses</h3>
+                        <div id="top-expenses-list" class="list-container">
+                            <!-- Dynamic content -->
+                        </div>
+                    </div>
+
+                    <!-- Top Categories -->
+                    <div class="animated-card">
+                        <h3>Top Categories</h3>
+                        <div id="top-categories-list" class="list-container">
+                            <!-- Dynamic content -->
+                        </div>
+                    </div>
+
+                    <!-- Monthly Average - THIS WAS MISSING! -->
+                    <div class="animated-card">
+                        <h3>Monthly Average</h3>
+                        <div class="stat-display">
+                            <i class="fas fa-chart-bar"></i>
+                            $<span id="monthly-average">0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fraud Detection -->
+            <div class="animated-section">
+                <div class="form-animated">
+                    <h3>Fraud Detection</h3>
+                    <button id="detect-fraud" class="btn-animated btn-secondary">
+                        <i class="fas fa-shield-alt"></i> Analyze Transactions
+                    </button>
+                    <div id="fraud-results" class="list-container">
+                        <!-- Dynamic content -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transaction History -->
+            <div class="animated-section">
+                <div class="table-container">
+                    <h3>Transaction History</h3>
+                    <table id="transaction-history">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Amount</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>Date</th>
+                                <th>Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
